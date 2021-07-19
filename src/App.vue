@@ -5,6 +5,9 @@
     <transition name="fade">
       <p v-if="show">hello</p>
     </transition>
+    <transition name="slide">
+      <p v-if="show">bye</p>
+    </transition>
   </div>
 </template>
 
@@ -26,7 +29,7 @@ export default {
 }
 .fade-enter-active {
   /* 現れる時のトランジションの状態 */
-  transition: opacity 5s;
+  transition: opacity 0.5s;
 }
 .fade-enter-to {
   /* 現れる時の最後の状態 */
@@ -38,11 +41,30 @@ export default {
 }
 .fade-leave-active {
   /* 消える時のトランジションの状態 */
-  transition: opacity 5s;
+  transition: opacity 0.5s;
 }
 .fade-leave-to {
   /* 消える時の最後の状態 */
   opacity: 0;
+}
+
+/* CSSアニメーション */
+/* アニメーションの場合キーフレームに効果を指定してあげればenterとleaveのアクティブに記述すれば良い */
+.slide-enter-active {
+  animation: slide-in 0.5s; /* キーフレームの名前を指定する */
+}
+.slide-leave-active {
+  animation: slide-in 0.5s reverse; /* reverseで逆の効果を与えている */
+}
+
+/* CSSアニメーション キーフレーム */
+@keyframes slide-in {
+  from {
+    transform: translateX(100px);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 .main {
