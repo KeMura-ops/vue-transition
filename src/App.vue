@@ -2,11 +2,11 @@
   <div class="main">
     <button @click="show = !show">切り替え</button>
     <!-- トランジションの使用には「transition」タグとnameを用意する -->
-    <transition name="fade">
+    <transition name="fade" appear=""> <!-- appearで初期描画(リロード)時、アニメーションを実行できる -->
       <p v-if="show">hello</p>
     </transition>
      <!-- トランジションとアニメーションが両方使用したい場合typeで優先するものを指定できる -->
-    <transition name="slide" type="animation">
+    <transition name="slide" type="animation" appear="">
       <p v-show="show">bye</p>
     </transition>
   </div>
