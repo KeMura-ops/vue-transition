@@ -1,12 +1,13 @@
 <template>
   <div class="main">
+    <button @click="myAnime = 'slide'">Slide</button>
+    <button @click="myAnime = 'fade'">Fade</button>
+    <p>{{ myAnime }}</p>
     <button @click="show = !show">切り替え</button>
     <!-- トランジションの使用には「transition」タグとnameを用意する -->
     <transition
-      enter-to-class=""
       enter-active-class="animate__animated animate__bounce"
       leave-active-class="animate__animated animate__flash"
-      leave-to-class=""
       appear=""
     > <!-- 
         enter...,leave...でクラス名を上書きできる
@@ -15,8 +16,8 @@
       -->
       <p v-if="show">hello</p>
     </transition>
-     <!-- トランジションとアニメーションが両方使用したい場合typeで優先するものを指定できる -->
-    <transition name="slide" type="animation" appear="">
+    <!-- v-bindでトランジションを動的に切り替える -->
+    <transition :name="myAnime" appear="">
       <p v-show="show">bye</p>
     </transition>
   </div>
@@ -26,7 +27,8 @@
 export default {
   data() {
     return {
-      show: true
+      show: true,
+      myAnime: 'slide' // 動的トランジションの初期値
     }
   }
 }
