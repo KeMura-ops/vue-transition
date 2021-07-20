@@ -2,7 +2,17 @@
   <div class="main">
     <button @click="show = !show">切り替え</button>
     <!-- トランジションの使用には「transition」タグとnameを用意する -->
-    <transition name="fade" appear=""> <!-- appearで初期描画(リロード)時、アニメーションを実行できる -->
+    <transition
+      enter-to-class=""
+      enter-active-class="animate__animated animate__bounce"
+      leave-active-class="animate__animated animate__flash"
+      leave-to-class=""
+      appear=""
+    > <!-- 
+        enter...,leave...でクラス名を上書きできる
+        これを利用してanimate.cssのクラスを指定すると
+        その効果を適用できる(カスタムトランジション) 
+      -->
       <p v-if="show">hello</p>
     </transition>
      <!-- トランジションとアニメーションが両方使用したい場合typeで優先するものを指定できる -->
