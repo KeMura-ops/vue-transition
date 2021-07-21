@@ -4,7 +4,7 @@
     <button @click="myAnime = 'fade'">Fade</button>
     <p>{{ myAnime }}</p>
     <button @click="show = !show">切り替え</button>
-    <transition name="fade">
+    <transition name="fade" mode="out-in"> <!-- mode属性を使用することでトランジションを滑らかにできる -->
       <!-- v-showは単発のものにしか使用できないため、複数の場合はv-ifなどを使用する -->
       <!-- トランジションの中で複数の要素を使用する場合は、タグを判別するためにkey属性を付けると良い -->
       <p v-if="show" key="bye">Good Bye</p>
