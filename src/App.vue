@@ -4,7 +4,29 @@
     <button @click="myAnime = 'fade'">Fade</button>
     <p>{{ myAnime }}</p>
     <button @click="show = !show">切り替え</button>
-    <hr>
+    <br><br>
+    <!-- javascriptフック -->
+    <!-- 
+      CSSアニメーション(例としてname="fade")も適用できる
+      (JS,CSSのアニメ両方見ることができる)
+      ただし、done関数を付与した場合、JS側のアニメが終了した場合
+      CSS側のアニメの処理が残っていたとしても、そこで打ち切られる
+    -->
+    <transition
+      name="fade" 
+      @before-enter="beforeEnter"
+      @enter="enter"
+      @after-enter="afrerEnter"
+      @enter-canceld="enterCanceld"
+
+      @before-leave="beforeLeave"
+      @leave="Leave"
+      @after-leave="afrerLeave"
+      @leave-canceld="leaveCanceld"
+    >
+      <div class="circle" v-if="show"></div>
+    </transition>
+    <br>
     <button @click="myCom = 'ComponentA'">ComponentA</button>
     <button @click="myCom = 'ComponentB'">ComponentB</button>
     <transition name="fade" mode="out-in">
@@ -49,11 +71,47 @@ export default {
       myAnime: 'slide', // 動的トランジションの初期値
       myCom: 'ComponentA'
     }
+  },
+  methods: {
+    // javascriptアニメーション(フック)のメソッド
+    // el(HTML要素)を引数にとる
+    beforeEnter() {
+      // 現れる前
+    },
+    enter(el, done) { // done関数は非同期処理の際に使用される(アニメーションの終了をVue側に伝える)
+      // 現れる時
+    },
+    afterEnter() {
+      // 現れた後
+    },
+    enterCanceld() {
+      // 現れるアニメーションがキャンセルされた時
+    },
+    beforeLeave() {
+      // 消える前
+    },
+    leave(el, done) { // 「enter」と「leave」の時のみdoneを使用できる
+      // 消える時
+    },
+    afterLeave() {
+      // 消えた後
+    },
+    leaveCanceld() { // v-showの時のみ実行される
+      // 消えるアニメーションがキャンセルされた時
+    }
   }
 }
 </script>
 
 <style scoped>
+.circle {
+  width: 200px;
+  height: 200px;
+  margin: auto;
+  border-radius: 100px;
+  background-color: deeppink;
+}
+
 /* 切り替えの際にVue内部で「enter-active」や「enter-to」と言ったクラスを付けたり外したりしている */
 .fade-enter {
   /* 現れる時の最初の状態 */
