@@ -4,7 +4,12 @@
     <button @click="myAnime = 'fade'">Fade</button>
     <p>{{ myAnime }}</p>
     <button @click="show = !show">切り替え</button>
-    <!-- トランジションの使用には「transition」タグとnameを用意する -->
+    <transition name="fade">
+      <!-- v-showは単発のものにしか使用できないため、複数の場合はv-ifなどを使用する -->
+      <!-- トランジションの中で複数の要素を使用する場合は、タグを判別するためにkey属性を付けると良い -->
+      <p v-if="show" key="bye">Good Bye</p>
+      <p v-else key="hello">Good Afternoon</p>
+    </transition>
     <transition
       enter-active-class="animate__animated animate__bounce"
       leave-active-class="animate__animated animate__flash"
