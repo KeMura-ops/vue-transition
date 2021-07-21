@@ -4,6 +4,12 @@
     <button @click="myAnime = 'fade'">Fade</button>
     <p>{{ myAnime }}</p>
     <button @click="show = !show">切り替え</button>
+    <hr>
+    <button @click="myCom = 'ComponentA'">ComponentA</button>
+    <button @click="myCom = 'ComponentB'">ComponentB</button>
+    <transition name="fade" mode="out-in">
+      <component :is="myCom"></component>
+    </transition>
     <transition name="fade" mode="out-in"> <!-- mode属性を使用することでトランジションを滑らかにできる -->
       <!-- v-showは単発のものにしか使用できないため、複数の場合はv-ifなどを使用する -->
       <!-- トランジションの中で複数の要素を使用する場合は、タグを判別するためにkey属性を付けると良い -->
@@ -29,11 +35,19 @@
 </template>
 
 <script>
+import ComponentA from "./components/componentA.vue"
+import ComponentB from "./components/componentB.vue"
+
 export default {
+  components: {
+    ComponentA,
+    ComponentB
+  },
   data() {
     return {
       show: true,
-      myAnime: 'slide' // 動的トランジションの初期値
+      myAnime: 'slide', // 動的トランジションの初期値
+      myCom: 'ComponentA'
     }
   }
 }
