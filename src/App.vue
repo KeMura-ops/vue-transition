@@ -7,13 +7,11 @@
     <br><br>
     <!-- javascriptフック -->
     <!-- 
-      CSSアニメーション(例としてname="fade")も適用できる
-      (JS,CSSのアニメ両方見ることができる)
-      ただし、done関数を付与した場合、JS側のアニメが終了した場合
-      CSS側のアニメの処理が残っていたとしても、そこで打ち切られる
+      「:css="false"」(v-bind)で、CSSアニメーションを適用させず、JSのみのアニメ指定
+      jsアニメーションのみ使用する場合は、明示的にcss属性を「false」とすると良い
     -->
     <transition
-      name="fade" 
+      :css="false"
       @before-enter="beforeEnter"
       @enter="enter"
       @after-enter="afrerEnter"
