@@ -3,6 +3,19 @@
     <button @click="myAnime = 'slide'">Slide</button>
     <button @click="myAnime = 'fade'">Fade</button>
     <p>{{ myAnime }}</p>
+    <br>
+    <button @click="add">追加</button>
+    <ul style="width: 200px; margin: auto;">
+      <transition-group>
+      <li
+        style="cursor: pointer;"
+        v-for="(number, index) in numbers"
+        @click="remove(index)"
+        <!-- :key="number" -->
+        >{{ number }}</li>
+      </transition-group>
+    </ul>
+    <br>
     <button @click="show = !show">切り替え</button>
     <br><br>
     <!-- javascriptフック -->
@@ -59,12 +72,24 @@ export default {
   },
   data() {
     return {
+      numbers: [0, 1, 2],
+      nextNumber: 3,
       show: true,
       myAnime: 'slide', // 動的トランジションの初期値
       myCom: 'ComponentA'
     }
   },
   methods: {
+    randomIndex() {
+      return Math.floor(Math.random() * this.numbers.length) // dataのnumbersからランダムな整数を返す
+    },
+    add() {
+      this.numbers.splice(this.randomIndex(), 0, this.nextNumber);
+      this.nextNumber += 1;
+    },
+    remove(index) {
+      this.numbers.splice(index, 1);
+    },
     // javascriptアニメーション(フック)のメソッド
     // el(HTML要素)を引数にとる
     beforeEnter(el) {
