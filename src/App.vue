@@ -14,13 +14,7 @@
       :css="false"
       @before-enter="beforeEnter"
       @enter="enter"
-      @after-enter="afrerEnter"
-      @enter-canceld="enterCanceld"
-
-      @before-leave="beforeLeave"
-      @leave="Leave"
-      @after-leave="afrerLeave"
-      @leave-canceld="leaveCanceld"
+      @leave="leave"
     >
       <div class="circle" v-if="show"></div>
     </transition>
@@ -73,29 +67,33 @@ export default {
   methods: {
     // javascriptアニメーション(フック)のメソッド
     // el(HTML要素)を引数にとる
-    beforeEnter() {
+    beforeEnter(el) {
       // 現れる前
+      el.style.transform = 'scale(0)'
     },
     enter(el, done) { // done関数は非同期処理の際に使用される(アニメーションの終了をVue側に伝える)
       // 現れる時
-    },
-    afterEnter() {
-      // 現れた後
-    },
-    enterCanceld() {
-      // 現れるアニメーションがキャンセルされた時
-    },
-    beforeLeave() {
-      // 消える前
+      let scale = 0;
+      const interval = setInterval(() => {
+        el.style.transform = `scale(${scale})`;
+        scale += 0.1;
+        if (scale > 1) {
+          clearInterval(interval);
+          done();
+        }
+      }, 20);
     },
     leave(el, done) { // 「enter」と「leave」の時のみdoneを使用できる
       // 消える時
-    },
-    afterLeave() {
-      // 消えた後
-    },
-    leaveCanceld() { // v-showの時のみ実行される
-      // 消えるアニメーションがキャンセルされた時
+      let scale = 1;
+      const interval = setInterval(() => {
+        el.style.transform = `scale(${scale})`;
+        scale -= 0.1;
+        if (scale < 0) {
+          clearInterval(interval);
+          done();
+        }
+      }, 20);
     }
   }
 }
