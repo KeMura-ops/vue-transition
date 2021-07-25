@@ -6,12 +6,15 @@
     <br>
     <button @click="add">追加</button>
     <ul style="width: 200px; margin: auto;">
-      <transition-group>
+      <!-- トランジションの適用にはnameを付ける -->
+      <!-- トランジショングループはspanタグとしてみなされる(tag="div"として任意の名前に指定できる) -->
+      <transition-group name="fade">
+      <!-- トランジショングループでは必ずキー属性を付ける -->
       <li
         style="cursor: pointer;"
         v-for="(number, index) in numbers"
         @click="remove(index)"
-        <!-- :key="number" -->
+        :key="number"
         >{{ number }}</li>
       </transition-group>
     </ul>
