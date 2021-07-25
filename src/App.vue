@@ -136,6 +136,13 @@ export default {
   background-color: deeppink;
 }
 
+/* 7つ目のトランジションクラス */
+/* トランスフォーム(transition: transform 1s;)を使いVue側でfade(v)-moveクラスを付与している
+   これを適用することでトランジションに滑らかな動きを与えている
+ */
+.fade-move { 
+  transition: transform 1s;
+}
 /* 切り替えの際にVue内部で「enter-active」や「enter-to」と言ったクラスを付けたり外したりしている */
 .fade-enter {
   /* 現れる時の最初の状態 */
@@ -156,6 +163,8 @@ export default {
 .fade-leave-active {
   /* 消える時のトランジションの状態 */
   transition: opacity 0.5s;
+  position: absolute; /* 要素を削除する場合v-moveを付与できないので代わりにposition: absolute;を指定する */
+  width: 200px;
 }
 .fade-leave-to {
   /* 消える時の最後の状態 */
